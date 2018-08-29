@@ -45,9 +45,7 @@ class ViewController: UIViewController {
     if shouldScramble {
       UIView.animate(withDuration: 2.0) {
         self.logo.alpha = 0.0
-        for label in self.labels {
-          self.performScatter(label: label)
-        }
+        self.labels.forEach { self.performScatter(label: $0) }
       }
     } else {
       UIView.animate(withDuration: 2.0) {

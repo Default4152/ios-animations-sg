@@ -26,15 +26,17 @@ class ViewController: UIViewController {
     label.layer.position.y = originalYPosition
     label.layer.backgroundColor = UIColor.white.cgColor
     label.textColor = .black
+    label.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
     label.transform = .identity
   }
   
   func performScatter(label: UILabel) {
-    label.layer.position.x = CGFloat(arc4random_uniform(300))
-    label.layer.position.y = CGFloat(arc4random_uniform(300))
+    label.layer.position.x = CGFloat(arc4random_uniform(250))
+    label.layer.position.y = CGFloat(arc4random_uniform(250))
     label.layer.backgroundColor = UIColor.random.cgColor
     label.textColor = UIColor.random
     label.transform = CGAffineTransform(rotationAngle: CGFloat(arc4random_uniform(360)))
+      .concatenating(CGAffineTransform(scaleX: 1.9, y: 1.9))
   }
   
   @IBAction func toggle(_ sender: Any) {

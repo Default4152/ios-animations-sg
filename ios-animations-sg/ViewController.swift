@@ -12,12 +12,6 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
-  }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
 
   @IBAction func toggle(_ sender: Any) {
@@ -25,5 +19,12 @@ class ViewController: UIViewController {
   }
   
   var shouldScramble: Bool = false
+  @IBOutlet var letterL: UILabel!
+  @IBOutlet var letterA: UILabel!
+  @IBOutlet var letterM: UILabel!
+  @IBOutlet var letterB: UILabel!
+  @IBOutlet var letterD: UILabel!
+  @IBOutlet var letterA2: UILabel!
+  @IBOutlet var logo: UIImageView!
 }
 

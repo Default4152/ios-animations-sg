@@ -20,6 +20,10 @@ class ViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
 
-
+  @IBAction func toggle(_ sender: Any) {
+    shouldScramble = !shouldScramble
+  }
+  
+  var shouldScramble: Bool = false
 }
 

@@ -9,16 +9,57 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
   }
-
+  
+  override func viewDidAppear(_ animated: Bool) {
+    labels = [letterL, letterA, letterM, letterB, letterD, letterA2]
+    originalPositions = labels.compactMap { ($0.layer.position.x, $0.layer.position.y) }
+  }
+  
+  func gather(pos: Int, label: UILabel) {
+    guard let originalXPosition = self.originalPositions[pos].0,
+      let originalYPosition = self.originalPositions[pos].1 else { return }
+    label.layer.position.x = originalXPosition
+    label.layer.position.y = originalYPosition
+    label.layer.backgroundColor = UIColor.white.cgColor
+    label.textColor = .black
+    label.transform = .identity
+  }
+  
+  func performScatter(label: UILabel) {
+    label.layer.position.x = CGFloat(arc4random_uniform(300))
+    label.layer.position.y = CGFloat(arc4random_uniform(300))
+    label.layer.backgroundColor = UIColor.random.cgColor
+    label.textColor = UIColor.random
+    label.transform = CGAffineTransform(rotationAngle: CGFloat(arc4random_uniform(360)))
+  }
+  
   @IBAction func toggle(_ sender: Any) {
     shouldScramble = !shouldScramble
+    
+    if shouldScramble {
+      UIView.animate(withDuration: 2.0) {
+        self.logo.alpha = 0.0
+        for label in self.labels {
+          self.performScatter(label: label)
+        }
+      }
+    } else {
+      UIView.animate(withDuration: 2.0) {
+        self.logo.alpha = 1.0
+        for (i, label) in self.labels.enumerated() {
+          self.gather(pos: i, label: label)
+        }
+      }
+    }
   }
   
   var shouldScramble: Bool = false
+  var originalPositions: [(CGFloat?, CGFloat?)] = []
+  var labels: [UILabel] = []
   @IBOutlet var letterL: UILabel!
   @IBOutlet var letterA: UILabel!
   @IBOutlet var letterM: UILabel!
@@ -28,3 +69,11 @@ class ViewController: UIViewController {
   @IBOutlet var logo: UIImageView!
 }
 
+extension UIColor {
+  static var random: UIColor {
+    return UIColor(hue: CGFloat(arc4random_uniform(.max)) / CGFloat(UInt32.max),
+                   saturation: 1,
+                   brightness: 1,
+                   alpha: 1)
+  }
+}
